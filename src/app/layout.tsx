@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "../../components/Header";
+import { CartProvider } from "../../components/CartContext";
+import CartDrawer from "../../components/CartDrawer";
 
 const intraNet = localFont({
   src: [
@@ -33,7 +35,7 @@ const ibmPlexArabic = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Abyass",
+  title: "Abyss",
   description: "علامة أزياء سعودية تجمع بين الثقة والأناقة",
 };
 
@@ -48,8 +50,11 @@ export default function RootLayout({
         className={`${intraNet.variable} ${ibmPlexArabic.variable} antialiased bg-[#0a0a0a]`}
         style={{ fontFamily: `${ibmPlexArabic.style.fontFamily}, Arial, Helvetica, sans-serif` }}
       >
-        <Header />
-        {children}
+        <CartProvider>
+          <Header />
+          <CartDrawer />
+          {children}
+        </CartProvider>
       </body>
     </html>
   );

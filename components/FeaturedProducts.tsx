@@ -1,31 +1,37 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { useCart } from "./CartContext";
 
 const products = [
-  { id: 1, name: "تيشيرت أسود كلاسيك", price: 149, badge: "new" as const },
-  { id: 2, name: "هودي منظمة Abyss", price: 198, oldPrice: 268, discount: 26 },
-  { id: 3, name: "بانتس منظمة Abyss", price: 149, oldPrice: 199, discount: 25 },
-  { id: 4, name: "سويتر Abyss أسود", price: 290, badge: "new" as const },
+  { id: 1, name: "تيشيرت أسود كلاسيك", price: 149, badge: "new" as const, image: "/clothes/tshirt.jpg" },
+  { id: 2, name: "هودي منظمة Abyss", price: 198, oldPrice: 268, discount: 26, image: "/clothes/tshirt.jpg" },
+  { id: 3, name: "بانتس منظمة Abyss", price: 149, oldPrice: 199, discount: 25, image: "/clothes/tshirt.jpg" },
+  { id: 4, name: "سويتر Abyss أسود", price: 290, badge: "new" as const, image: "/clothes/tshirt.jpg" },
 ];
 
 const FeaturedProductCard = ({
+  id,
   name,
   price,
   oldPrice,
   discount,
   badge,
+  image,
   index = 0,
 }: {
+  id: number;
   name: string;
   price: number;
   oldPrice?: number;
   discount?: number;
   badge?: "new" | "sale" | null;
+  image?: string;
   index?: number;
 }) => {
   const [liked, setLiked] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const { addItem } = useCart();
 
   useEffect(() => {
     const el = cardRef.current;
@@ -46,15 +52,24 @@ const FeaturedProductCard = ({
   return (
     <div ref={cardRef} className="card-enter">
       <div className="group relative bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.14)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2">
-        {/* Image area with niche effect */}
+        {/* Image area */}
         <div className="relative aspect-[3/4] bg-gradient-to-b from-[#f0f0f0] via-[#e8e8e8] to-[#f0f0f0] overflow-hidden">
-          {/* Niche/alcove shadow effect like the reference */}
-          <div className="absolute inset-4 rounded-xl bg-gradient-to-b from-[#d8d8d8] via-[#e4e4e4] to-[#f2f2f2] shadow-[inset_0_8px_24px_rgba(0,0,0,0.12),inset_0_-4px_12px_rgba(255,255,255,0.3)]" />
-          <div className="absolute inset-6 rounded-lg bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] flex items-center justify-center">
-            <span className="text-[48px] font-bold text-black/[0.04] tracking-[0.15em] select-none">
-              Abyss
-            </span>
-          </div>
+          {image ? (
+            <img
+              src={image}
+              alt={name}
+              className="w-full h-full object-cover transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
+            />
+          ) : (
+            <>
+              <div className="absolute inset-4 rounded-xl bg-gradient-to-b from-[#d8d8d8] via-[#e4e4e4] to-[#f2f2f2] shadow-[inset_0_8px_24px_rgba(0,0,0,0.12),inset_0_-4px_12px_rgba(255,255,255,0.3)]" />
+              <div className="absolute inset-6 rounded-lg bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] flex items-center justify-center">
+                <span className="text-[48px] font-bold text-black/[0.04] tracking-[0.15em] select-none">
+                  Abyss
+                </span>
+              </div>
+            </>
+          )}
 
           {/* Heart */}
           <button
@@ -96,7 +111,10 @@ const FeaturedProductCard = ({
             <span className="text-[18px] font-bold text-[#0a0a0a]">{price}</span>
           </div>
 
-          <button className="w-full h-11 bg-[#0a0a0a] text-white text-[14px] font-semibold rounded-xl flex items-center justify-center gap-2 hover:bg-[#1a1a1a] active:scale-[0.98] transition-all duration-200 cursor-pointer">
+          <button
+            onClick={() => addItem({ id, name, price, oldPrice })}
+            className="w-full h-11 bg-[#0a0a0a] text-white text-[14px] font-semibold rounded-xl flex items-center justify-center gap-2 hover:bg-[#1a1a1a] active:scale-[0.98] transition-all duration-200 cursor-pointer"
+          >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1" />
               <circle cx="20" cy="21" r="1" />
@@ -124,11 +142,13 @@ const FeaturedProducts = () => {
           {products.map((p, i) => (
             <FeaturedProductCard
               key={p.id}
+              id={p.id}
               name={p.name}
               price={p.price}
               oldPrice={p.oldPrice}
               discount={p.discount}
               badge={p.badge}
+              image={p.image}
               index={i}
             />
           ))}

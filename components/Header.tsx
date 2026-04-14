@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useCart } from "./CartContext";
 
 const navLinks = [
   { href: "/new", label: "جديدنا" },
@@ -19,6 +20,7 @@ const navLinks = [
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { openCart, totalItems } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -45,17 +47,19 @@ const Header = () => {
             </svg>
           </button>
 
-          <Link href="/cart" className="group relative p-2" aria-label="Cart">
+          <button onClick={openCart} className="group relative p-2 cursor-pointer" aria-label="Cart">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="text-[#888] group-hover:text-[#0a0a0a] transition-all duration-300 group-hover:scale-110">
               <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
               <path d="M16 10a4 4 0 01-8 0" />
             </svg>
             {/* Cart badge */}
-            <span className="absolute top-1 left-1 w-4 h-4 bg-[#0a0a0a] rounded-full flex items-center justify-center text-[9px] font-bold text-white opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300">
-              0
-            </span>
-          </Link>
+            {totalItems > 0 && (
+              <span className="absolute top-0.5 left-0.5 w-[18px] h-[18px] bg-[#0a0a0a] rounded-full flex items-center justify-center text-[10px] font-bold text-white animate-scale-in">
+                {totalItems}
+              </span>
+            )}
+          </button>
 
           <Link href="/account" className="group relative p-2" aria-label="Account">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="text-[#888] group-hover:text-[#0a0a0a] transition-all duration-300 group-hover:scale-110">
