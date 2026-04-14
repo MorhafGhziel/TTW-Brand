@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../../components/Header";
 import { CartProvider } from "../../components/CartContext";
 import CartDrawer from "../../components/CartDrawer";
+import SmoothScroll from "../../components/SmoothScroll";
 
 const intraNet = localFont({
   src: [
@@ -51,6 +52,7 @@ export default function RootLayout({
         style={{ fontFamily: `${ibmPlexArabic.style.fontFamily}, Arial, Helvetica, sans-serif` }}
       >
         <CartProvider>
+          <SmoothScroll />
           <Header />
           <CartDrawer />
           {children}
