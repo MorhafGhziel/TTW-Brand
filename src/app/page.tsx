@@ -1,19 +1,25 @@
-import Footer from "../../components/Footer";
-import Hero from "../../components/Hero";
-import FeaturedProducts from "../../components/FeaturedProducts";
+import Loader from "@/components/Loader";
+import Hero from "@/components/Hero";
+import NewDrop from "@/components/NewDrop";
+import Lookbook from "@/components/Lookbook";
+import Categories from "@/components/Categories";
+import Bestsellers from "@/components/Bestsellers";
+import Manifesto from "@/components/Manifesto";
+import { getBestsellers, lookbook } from "@/lib/products";
 
-import TrustBadges from "../../components/TrustBadges";
-import CTABanner from "../../components/CTABanner";
+/* Newsletter and Footer close every route and live in the layout. */
+export default async function Home() {
+  const bestsellers = await getBestsellers();
 
-export default function Home() {
   return (
     <>
+      <Loader />
       <Hero />
-      <FeaturedProducts />
-
-      <TrustBadges />
-      <CTABanner />
-      <Footer />
+      <NewDrop />
+      <Lookbook shots={lookbook} />
+      <Categories />
+      <Bestsellers products={bestsellers} />
+      <Manifesto />
     </>
   );
 }
