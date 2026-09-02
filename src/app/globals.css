@@ -1,158 +1,458 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════
-   DESIGN TOKENS
-   ═══════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════
+   ABYSS — design tokens
+   Dark, chrome, sharp. Nothing here is rounded and nothing casts a
+   shadow; depth comes from 1px hairlines and from the grain layer.
+   ════════════════════════════════════════════════════════════════════ */
+
 :root {
-  --background: #f9f9f9;
-  --foreground: #0a0a0a;
-  --surface: #ffffff;
-  --muted: #888888;
-  --border: #e8e8e8;
-  --accent: #0a0a0a;
+  /* Surfaces — near-black with a trace of warmth, never #000 */
+  --abyss: #0a0a0a;
+  --surface: #111111;
+  --elevated: #1a1a1a;
+
+  /* Type */
+  --text: #f5f5f5;
+  --text-2: #a3a3a3;
+  /* The brief specifies #525252 here. It measures 2.7:1 on the page ground —
+     below the AA floor the same brief asks for — and tertiary labels carry
+     real content (product sub-names, stock notes, order totals). Lifted to
+     the darkest value that still clears 4.5:1 on both #0A0A0A and #111111. */
+  --text-3: #7d7d7d;
+
+  /* Accents — chrome carries the brand, blue is reserved for action */
+  --chrome: #c0c0c0;
+  --blue: #4a90e2;
+
+  /* Hairlines */
+  --line: rgba(245, 245, 245, 0.08);
+  --line-strong: rgba(245, 245, 245, 0.18);
+
+  /* State */
+  --error: #ef4444;
+  --success: #22c55e;
+
+  /* Motion — one easing curve across the whole site */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --max: 1440px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-intranet);
-  --font-mono: var(--font-intranet);
+  --color-abyss: var(--abyss);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-chrome: var(--chrome);
+  --color-blue: var(--blue);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-error: var(--error);
+  --color-success: var(--success);
+
+  --font-sans: var(--font-body);
+  --font-kufi: var(--font-kufi);
+  --font-display: var(--font-display);
+  --font-outline: var(--font-outline);
+
+  --radius-none: 0px;
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════════════════════════════════════════
    BASE
-   ═══════════════════════════════════════ */
+   ════════════════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+  border-radius: 0;
+}
+
 html {
-  scroll-behavior: smooth;
+  /* Lenis owns smooth scrolling; CSS smooth-behavior would fight its loop. */
+  scroll-behavior: auto;
+  /* Anchor targets clear the fixed trust strip (2rem) + header (4rem). */
+  scroll-padding-top: 6rem;
+  background: var(--abyss);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--abyss);
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* ═══════════════════════════════════════
-   SCROLLBAR
-   ═══════════════════════════════════════ */
+::selection {
+  background: var(--chrome);
+  color: var(--abyss);
+}
+
+/* Focus is visible on every interactive element — this is a dark site,
+   so the ring is light and offset rather than a coloured glow. */
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* Fields are large and already carry a rule; a 2px box around them reads as
+   an error state. They get a hairline set further out instead. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline-width: 1px;
+  outline-offset: 4px;
+}
+
+/* Chromium paints autofilled fields on a pale ground with dark text, which
+   is unreadable here. The long transition is the standard way to keep the
+   dark background from being repainted. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+  transition: background-color 100000s ease-in-out 0s;
+}
+
+/* Two clear affordances in one field is one too many — the overlay already
+   has its own close control. */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--abyss);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.12);
-  border-radius: 10px;
+  background: #2a2a2a;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.22);
+  background: var(--text-3);
 }
 
-::selection {
-  background: rgba(10, 10, 10, 0.08);
-  color: #0a0a0a;
+/* ════════════════════════════════════════════════════════════════════
+   GRAIN
+   A single fixed film-grain plate over the whole document. Kept at 3%
+   and blended, so it reads as texture on photography and is nearly
+   invisible on flat panels.
+   ════════════════════════════════════════════════════════════════════ */
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
 }
 
-/* ═══════════════════════════════════════
-   ANIMATIONS
-   ═══════════════════════════════════════ */
-@keyframes fadeUp {
+/* ════════════════════════════════════════════════════════════════════
+   TYPE
+   Three faces, one job each:
+     display  — IntraNet, latin only, wordmark and section numerals
+     outline  — IntraNet Outline, the marquee and nothing else
+     kufi     — Noto Kufi Arabic, angular, for arabic headlines
+     body     — Tajawal, arabic and small latin data
+   ════════════════════════════════════════════════════════════════════ */
+
+.font-kufi {
+  font-family: var(--font-kufi), var(--font-body), sans-serif;
+}
+
+.display {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.outline-type {
+  font-family: var(--font-outline), var(--font-display), sans-serif;
+  font-weight: 400;
+}
+
+/* Arabic headlines: heavy kufi, tight leading. Kufi needs a touch more
+   room than a latin sans at the same size — 1.15 is the floor. */
+.h-hero {
+  font-family: var(--font-kufi), sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.h-section {
+  font-family: var(--font-kufi), sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.18;
+}
+
+.h-sub {
+  font-family: var(--font-kufi), sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.3;
+}
+
+/* Small latin data: prices, sizes, order refs. Tabular so columns of
+   numbers line up. */
+.data {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+/* Micro-label. Used sparingly — a section eyebrow, a form hint.
+   Deliberately sets no colour: it lands on video, on panels and on the page
+   ground, and each of those needs a different one.
+
+   No letter-spacing. Arabic is a joined script, and tracking prises the
+   letterforms apart at the joins — the tracked-out eyebrow that reads as
+   "editorial" in latin reads as broken here. Word-spacing gives the same
+   airy, labelled quality without touching the letters. `.data` below keeps
+   its small tracking because it only ever sets latin. */
+.meta {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  word-spacing: 0.22em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.prose-ar {
+  line-height: 1.8;
+  max-width: 62ch;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   COMPONENTS
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Text link that draws its rule from the leading edge outward. Uses a
+   logical inset so it grows right-to-left inside dir="rtl". */
+.link-underline {
+  position: relative;
+  transition: color 0.3s var(--ease);
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.35s var(--ease);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  width: 100%;
+}
+.link-underline:hover {
+  color: var(--chrome);
+}
+
+/* Solid CTA. White on black, chrome on hover — the only filled button
+   in the system. */
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: var(--text);
+  color: var(--abyss);
+  font-weight: 700;
+  padding: 0.9rem 2.25rem;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.btn-solid:hover:not(:disabled) {
+  background: var(--chrome);
+}
+.btn-solid:disabled {
+  background: var(--elevated);
+  color: var(--text-3);
+  cursor: not-allowed;
+}
+
+/* Outlined button — hairline that fills on hover. */
+.btn-line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  padding: 0.9rem 2.25rem;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+.btn-line:hover:not(:disabled) {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--abyss);
+}
+
+/* ── Photography grade ────────────────────────────────────────────────
+   Source frames arrive at wildly different exposures — a white-seamless
+   flat lay next to a night portrait — and the page needs them to read as
+   one shoot.
+
+   Filters alone could not do it: a white-seamless studio shot next to a night
+   portrait stays a white rectangle no matter how far the exposure is pulled.
+   So the frames are duotoned instead — a cold slate plate blended in `color`
+   mode takes the hue and saturation of every image while keeping its
+   luminosity, which lands the whole set in one register. The plate is a
+   fading overlay rather than a blend-mode swap so the hover reveals true
+   colour smoothly instead of snapping. */
+
+/* Deliberately sets no `position`: callers are already positioned, and one
+   of them is `absolute inset-0`. An unlayered `position: relative` here
+   outranks that utility and collapses the frame. */
+.duotone {
+  isolation: isolate;
+}
+
+.duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: #1b2733;
+  mix-blend-mode: color;
+  transition: opacity 0.7s var(--ease);
+}
+
+.duotone img {
+  filter: brightness(0.8) contrast(1.12);
+  transition: filter 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+/* Product tile: fully duotoned at rest, true colour under the pointer.
+   The compound form covers the category rail, where the tile is both the
+   hover group and the plate. */
+.group:hover .duotone::after,
+.group.duotone:hover::after {
+  opacity: 0;
+}
+.group:hover .duotone img,
+.group.duotone:hover img {
+  filter: brightness(0.98) contrast(1.02);
+}
+
+/* Category rail: type sits on these, so they stay dark even on hover. */
+.duotone-deep img {
+  filter: brightness(0.5) contrast(1.15);
+}
+.group:hover .duotone-deep img,
+.group.duotone-deep:hover img {
+  filter: brightness(0.72) contrast(1.08);
+}
+.group:hover .duotone-deep::after,
+.group.duotone-deep:hover::after {
+  opacity: 0.55;
+}
+
+/* Lookbook: no hover, one fixed editorial grade. */
+.duotone-editorial img {
+  filter: brightness(0.72) contrast(1.12);
+}
+
+/* The hero footage is already night-lit; it only needs the cold shift. */
+.graded {
+  filter: saturate(0.72) contrast(1.06) brightness(0.82);
+}
+
+/* Hides the scrollbar on the snap rails without disabling scrolling. */
+.rail {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MOTION
+   ════════════════════════════════════════════════════════════════════ */
+
+@keyframes marquee-rtl {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes scroll-pulse {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.animate-marquee {
+  animation: marquee-rtl 42s linear infinite;
+}
+
+.animate-scroll-pulse {
+  animation: scroll-pulse 2.4s var(--ease) infinite;
+}
+
+/* Trust strip line rotation: a soft rise-and-fade between messages. */
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes heroTextReveal {
-  from {
-    opacity: 0;
-    letter-spacing: 0.5em;
-    filter: blur(8px);
-  }
-  to {
-    opacity: 1;
-    letter-spacing: 0.3em;
-    filter: blur(0);
-  }
-}
-
-@keyframes heroSubReveal {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 0.6;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes scrollIndicator {
-  0%, 100% { opacity: 0.3; transform: translateY(0) translateX(-50%); }
-  50% { opacity: 0.8; transform: translateY(8px) translateX(-50%); }
-}
-
-.animate-fade-up {
-  animation: fadeUp 0.7s ease-out forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
+  animation: fade-in 0.6s var(--ease) both;
 }
 
-.animate-scale-in {
-  animation: scaleIn 0.5s ease-out forwards;
-}
-
-.animate-slide-down {
-  animation: slideDown 0.4s ease-out forwards;
-}
-
-/* Staggered card animations */
-.card-enter {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card-enter.visible {
-  opacity: 1;
-  transform: translateY(0);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
