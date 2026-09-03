@@ -90,7 +90,7 @@ const SearchOverlay = () => {
               <button
                 type="button"
                 onClick={closeSearch}
-                aria-label="إغلاق البحث"
+                aria-label="سكّر البحث"
                 className="text-text transition-colors hover:text-chrome"
               >
                 <X size={22} strokeWidth={1.5} />
@@ -98,7 +98,7 @@ const SearchOverlay = () => {
             </div>
 
             <label htmlFor="site-search" className="sr-only">
-              ابحث في المتجر
+              دوّر في المتجر
             </label>
             <input
               ref={inputRef}
@@ -106,15 +106,15 @@ const SearchOverlay = () => {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="ابحث عن..."
+              placeholder="وش تدوّر؟"
               autoComplete="off"
-              className="font-kufi w-full border-b border-line-strong bg-transparent pb-5 text-[clamp(1.75rem,5vw,2.75rem)] font-bold text-text outline-none placeholder:text-text-3 focus:border-text"
+              className="w-full border-b border-line-strong bg-transparent pb-5 text-[clamp(1.75rem,5vw,2.75rem)] font-bold text-text outline-none placeholder:text-text-3 focus:border-text"
             />
 
             {query.trim() === "" ? (
               recent.length > 0 && (
                 <div className="mt-10">
-                  <p className="meta mb-4 text-text-3">آخر عمليات البحث</p>
+                  <p className="meta mb-4 text-text-3">آخر ما دوّرت عليه</p>
                   <ul className="flex flex-wrap gap-2">
                     {recent.map((term) => (
                       <li key={term}>
@@ -132,8 +132,8 @@ const SearchOverlay = () => {
               )
             ) : results.length === 0 ? (
               <p className="mt-10 text-[0.9375rem] text-text-2">
-                لا يوجد ما يطابق &laquo;{query}&raquo;. جرّب اسم قطعة أو فئة —
-                جاكيتات، تيشيرتات، أحذية.
+                ما لقينا شي لـ &laquo;{query}&raquo;. جرّب اسم قطعة أو نوع — جاكيتات،
+                تيشيرتات، أحذية.
               </p>
             ) : (
               <ul className="mt-10 divide-y divide-line border-y border-line">
@@ -155,7 +155,7 @@ const SearchOverlay = () => {
                       </span>
 
                       <span className="min-w-0 flex-1">
-                        <span className="font-kufi block text-[1rem] font-bold transition-colors group-hover:text-chrome">
+                        <span className="block text-[1rem] font-bold transition-colors group-hover:text-chrome">
                           {product.name}
                         </span>
                         <span className="data block text-[0.625rem] tracking-[0.2em] text-text-3">

@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: Params) {
 
       {related.length > 0 && (
         <section className="mx-auto max-w-[var(--max)] px-5 pb-24 md:px-8 md:pb-32">
-          <h2 className="h-sub mb-8">يُلبس معه</h2>
+          <h2 className="h-sub mb-8">يلبس معه</h2>
           <ProductGrid products={related} eagerCount={0} columns={4} />
         </section>
       )}

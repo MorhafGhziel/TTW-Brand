@@ -45,7 +45,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
                   {formatPrice(product.oldPrice)}
                 </span>
                 <span className="bg-blue px-2 py-1 text-[0.625rem] leading-none font-bold text-abyss">
-                  وفّر {formatPrice(product.oldPrice - product.price)}
+                  وفّرت {formatPrice(product.oldPrice - product.price)}
                 </span>
               </>
             )}
@@ -117,7 +117,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
 
             {product.soldOutSizes?.length ? (
               <p className="mt-3 text-[0.75rem] text-text-3">
-                المقاسات المشطوبة نفدت من هذه الدفعة.
+                المقاسات المشطوبة خلصت من هالدفعة.
               </p>
             ) : null}
           </div>
@@ -128,12 +128,12 @@ const ProductDetail = ({ product }: { product: Product }) => {
             disabled={!size}
             className="btn-solid mt-8 w-full text-[0.9375rem]"
           >
-            {size ? "أضف إلى السلة" : "اختر المقاس"}
+            {size ? "ضفها للسلة" : "اختر مقاسك"}
           </button>
 
           <p className="mt-4 text-center text-[0.75rem] text-text-3">
-            شحن مجاني فوق {formatPrice(FREE_SHIPPING_THRESHOLD)} ر.س · استبدال
-            خلال ١٤ يوماً
+            شحن مجاني فوق {formatPrice(FREE_SHIPPING_THRESHOLD)} ر.س · تبديل خلال
+            14 يوم
           </p>
 
           <div className="mt-10 border-t border-line">

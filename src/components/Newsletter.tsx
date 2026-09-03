@@ -18,7 +18,7 @@ const Newsletter = () => {
     e.preventDefault();
 
     if (!isValidEmail(email)) {
-      setError("اكتب بريداً إلكترونياً صحيحاً");
+      setError("اكتب إيميل صحيح");
       return;
     }
 
@@ -31,10 +31,10 @@ const Newsletter = () => {
       <div className="mx-auto grid max-w-[var(--max)] gap-8 px-5 py-16 md:grid-cols-[1fr_auto] md:items-end md:px-8 md:py-20">
         <div>
           <h2 className="h-sub max-w-[22ch]">
-            كن أول من يعلم عن التشكيلات الجديدة
+            خلك أول من يدري بالدروب الجاي
           </h2>
           <p className="mt-3 max-w-[42ch] text-[0.9375rem] text-text-2">
-            رسالة واحدة قبل كل إصدار، وأخرى حين يعود ما نفد. لا شيء غير ذلك.
+            رسالة وحدة قبل كل دروب، ووحدة إذا رجع شي نفد. ولا شي ثاني.
           </p>
         </div>
 
@@ -43,7 +43,7 @@ const Newsletter = () => {
             role="status"
             className="text-[0.9375rem] text-text md:w-[24rem] md:justify-self-end"
           >
-            تم تسجيلك. ستصلك رسالة قبل نزول الإصدار القادم.
+            تم. بنراسلك قبل ما ينزل الدروب الجاي.
           </p>
         ) : (
           <form
@@ -53,7 +53,7 @@ const Newsletter = () => {
           >
             <div className="flex items-center gap-4 border-b border-white/20 focus-within:border-text">
               <label htmlFor="newsletter-email" className="sr-only">
-                البريد الإلكتروني
+                الإيميل
               </label>
               <input
                 id="newsletter-email"
@@ -63,7 +63,7 @@ const Newsletter = () => {
                   setEmail(e.target.value);
                   if (error) setError(null);
                 }}
-                placeholder="بريدك الإلكتروني"
+                placeholder="إيميلك"
                 aria-invalid={Boolean(error)}
                 aria-describedby={error ? "newsletter-error" : undefined}
                 className="w-full bg-transparent py-3 text-[0.9375rem] text-text outline-none placeholder:text-text-3"
@@ -72,7 +72,7 @@ const Newsletter = () => {
                 type="submit"
                 className="shrink-0 py-3 text-[0.875rem] font-bold text-text transition-colors duration-300 hover:text-chrome"
               >
-                انضم
+                سجّلني
               </button>
             </div>
 

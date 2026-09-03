@@ -80,11 +80,11 @@ const Lookbook = ({ shots }: { shots: LookbookShot[] }) => {
             <figcaption className="absolute inset-x-0 bottom-0 p-6 md:p-9">
               <p className="meta mb-3 text-text-2">لوك بوك</p>
               <h2 className="h-section max-w-[12ch]">
-                الأعماق لا تُصوَّر بالضوء
+                صوّرناها بالليل
               </h2>
               <p className="prose-ar mt-4 max-w-[38ch] text-[0.9375rem] text-text-2">
-                صُوِّرت التشكيلة في مواقف سيارات الرياض بعد منتصف الليل، بفلاش
-                واحد ولا شيء غيره.
+                في مواقف الرياض بعد نص الليل. فلاش واحد وبس — لا إضاءة
+                استوديو ولا تعديل ألوان.
               </p>
             </figcaption>
           </figure>

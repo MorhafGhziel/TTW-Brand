@@ -67,7 +67,7 @@ const CartDrawer = () => {
             key="panel"
             role="dialog"
             aria-modal="true"
-            aria-label="سلة التسوق"
+            aria-label="السلة"
             className="fixed inset-y-0 left-0 z-[95] flex w-full max-w-md flex-col border-r border-line bg-surface"
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
@@ -75,8 +75,8 @@ const CartDrawer = () => {
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
             <header className="flex items-center justify-between border-b border-line px-5 py-4">
-              <h2 className="font-kufi text-[1.125rem] font-bold">
-                سلة التسوق
+              <h2 className="text-[1.125rem] font-bold">
+                السلة
                 {totalItems > 0 && (
                   <span className="data ms-2 text-[0.875rem] font-normal text-text-3">
                     {totalItems}
@@ -87,7 +87,7 @@ const CartDrawer = () => {
                 ref={closeRef}
                 type="button"
                 onClick={closeCart}
-                aria-label="إغلاق السلة"
+                aria-label="سكّر السلة"
                 className="text-text transition-colors hover:text-chrome"
               >
                 <X size={20} strokeWidth={1.5} />
@@ -96,16 +96,16 @@ const CartDrawer = () => {
 
             {lines.length === 0 ? (
               <div className="flex flex-1 flex-col items-start justify-center gap-5 px-5">
-                <p className="font-kufi text-[1.25rem] font-bold">سلتك فارغة</p>
+                <p className="text-[1.25rem] font-bold">سلتك فاضية</p>
                 <p className="max-w-[30ch] text-[0.9375rem] text-text-2">
-                  ابدأ من التشكيلة الجديدة — ستة قطع نزلت هذا الأسبوع.
+                  ابدأ من الدروب الجديد — 6 قطع نزلت هذا الأسبوع.
                 </p>
                 <AnchorLink
                   href="/#new-drop"
                   onNavigate={closeCart}
                   className="btn-line text-[0.875rem]"
                 >
-                  تصفّح التشكيلة
+                  شوف الدروب
                 </AnchorLink>
               </div>
             ) : (
@@ -129,7 +129,7 @@ const CartDrawer = () => {
 
                       <div className="flex min-w-0 flex-1 flex-col">
                         <div className="flex items-start justify-between gap-3">
-                          <h3 className="font-kufi text-[0.9375rem] leading-snug font-bold">
+                          <h3 className="text-[0.9375rem] leading-snug font-bold">
                             <Link href={`/product/${line.slug}`} onClick={closeCart}>
                               {line.name}
                             </Link>
@@ -137,7 +137,7 @@ const CartDrawer = () => {
                           <button
                             type="button"
                             onClick={() => removeLine(line.key)}
-                            aria-label={`احذف ${line.name} من السلة`}
+                            aria-label={`شِل ${line.name} من السلة`}
                             className="shrink-0 text-text-3 transition-colors hover:text-error"
                           >
                             <X size={15} strokeWidth={1.5} />
@@ -153,7 +153,7 @@ const CartDrawer = () => {
                             <button
                               type="button"
                               onClick={() => setQuantity(line.key, line.quantity - 1)}
-                              aria-label="إنقاص الكمية"
+                              aria-label="نقّص الكمية"
                               className="p-2 text-text-2 transition-colors hover:text-text"
                             >
                               <Minus size={13} strokeWidth={1.5} />
@@ -164,7 +164,7 @@ const CartDrawer = () => {
                             <button
                               type="button"
                               onClick={() => setQuantity(line.key, line.quantity + 1)}
-                              aria-label="زيادة الكمية"
+                              aria-label="زوّد الكمية"
                               className="p-2 text-text-2 transition-colors hover:text-text"
                             >
                               <Plus size={13} strokeWidth={1.5} />
@@ -189,7 +189,7 @@ const CartDrawer = () => {
                           <span className="font-bold text-text">
                             {formatPrice(remaining)} ر.س
                           </span>{" "}
-                          ليصبح الشحن مجانياً
+                          ويصير الشحن مجاني
                         </p>
                         <div className="h-px bg-elevated">
                           <div
@@ -210,14 +210,14 @@ const CartDrawer = () => {
                         <span className="font-bold text-text">
                           الشحن مجاني
                         </span>{" "}
-                        على هذا الطلب
+                        على طلبك
                       </p>
                     )}
                   </div>
 
                   <div className="mb-5 flex items-baseline justify-between border-t border-line pt-4">
                     <span className="text-[0.9375rem] text-text-2">
-                      المجموع الفرعي
+                      المجموع
                     </span>
                     <span className="data text-[1.0625rem]">
                       {formatPrice(subtotal)} ر.س
@@ -229,7 +229,7 @@ const CartDrawer = () => {
                     onClick={closeCart}
                     className="btn-solid w-full text-[0.9375rem]"
                   >
-                    إتمام الشراء
+                    كمّل الطلب
                   </Link>
                 </footer>
               </>

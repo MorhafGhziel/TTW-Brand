@@ -57,11 +57,11 @@ export default function CheckoutPage() {
   const validate = (): boolean => {
     const next: Errors = {};
 
-    if (form.fullName.trim().length < 3) next.fullName = "اكتب اسمك الكامل";
+    if (form.fullName.trim().length < 3) next.fullName = "اكتب اسمك كامل";
     if (!isValidSaudiPhone(form.phone))
-      next.phone = "رقم جوال سعودي غير صحيح — مثال: ٠٥٠١٢٣٤٥٦٧";
-    if (!isValidEmail(form.email)) next.email = "بريد إلكتروني غير صحيح";
-    if (!form.city) next.city = "اختر المدينة";
+      next.phone = "رقم الجوال مو صحيح — مثال: 0501234567";
+    if (!isValidEmail(form.email)) next.email = "الإيميل مو صحيح";
+    if (!form.city) next.city = "اختر مدينتك";
     if (form.address.trim().length < 8) next.address = "اكتب العنوان بالتفصيل";
 
     setErrors(next);
@@ -101,19 +101,19 @@ export default function CheckoutPage() {
   if (orderId) {
     return (
       <div className="mx-auto flex min-h-[70vh] max-w-[var(--max)] flex-col items-center justify-center px-5 py-24 text-center md:px-8">
-        <p className="meta mb-6 text-text-3">تم استلام الطلب</p>
-        <h1 className="h-section mb-4">شكراً لك</h1>
+        <p className="meta mb-6 text-text-3">وصلنا طلبك</p>
+        <h1 className="h-section mb-4">يعطيك العافية</h1>
         <p className="mb-2 max-w-[42ch] leading-relaxed text-text-2">
-          سنتواصل معك على {form.phone} لتأكيد الطلب وموعد التوصيل.
+          بنكلمك على {form.phone} نأكد الطلب ونتفق على وقت التوصيل.
         </p>
         <p className="data mb-10 text-[0.875rem] text-text-3">
-          رقم الطلب: <span className="text-text">{orderId}</span>
+          رقم طلبك: <span className="text-text">{orderId}</span>
         </p>
         <Link
           href="/"
           className="btn-solid text-[0.9375rem]"
         >
-          العودة إلى المتجر
+          ارجع للمتجر
         </Link>
       </div>
     );
@@ -123,13 +123,13 @@ export default function CheckoutPage() {
   if (hydrated && lines.length === 0) {
     return (
       <div className="mx-auto flex min-h-[70vh] max-w-[var(--max)] flex-col items-center justify-center px-5 text-center md:px-8">
-        <h1 className="h-section mb-4">السلة فارغة</h1>
-        <p className="mb-10 text-text-2">أضف قطعة واحدة على الأقل قبل الدفع.</p>
+        <h1 className="h-section mb-4">السلة فاضية</h1>
+        <p className="mb-10 text-text-2">ضف قطعة وحدة على الأقل قبل ما تدفع.</p>
         <Link
           href="/"
           className="btn-solid text-[0.9375rem]"
         >
-          تصفّح القطع
+          شوف الدروب
         </Link>
       </div>
     );
@@ -152,7 +152,7 @@ export default function CheckoutPage() {
               <div data-error={Boolean(errors.fullName)} className="sm:col-span-2">
                 <input
                   className={field}
-                  placeholder="الاسم الكامل"
+                  placeholder="اسمك الكامل"
                   value={form.fullName}
                   onChange={(e) => update("fullName", e.target.value)}
                   aria-invalid={Boolean(errors.fullName)}
@@ -165,7 +165,7 @@ export default function CheckoutPage() {
               <div data-error={Boolean(errors.phone)}>
                 <input
                   className={field}
-                  placeholder="رقم الجوال"
+                  placeholder="رقم جوالك"
                   inputMode="tel"
                   dir="ltr"
                   value={form.phone}
@@ -180,7 +180,7 @@ export default function CheckoutPage() {
               <div data-error={Boolean(errors.email)}>
                 <input
                   className={field}
-                  placeholder="البريد الإلكتروني"
+                  placeholder="إيميلك"
                   inputMode="email"
                   dir="ltr"
                   value={form.email}
@@ -205,7 +205,7 @@ export default function CheckoutPage() {
                   onChange={(e) => update("city", e.target.value)}
                   aria-invalid={Boolean(errors.city)}
                 >
-                  <option value="">المدينة</option>
+                  <option value="">اختر مدينتك</option>
                   {CITIES.map((c) => (
                     <option key={c} value={c}>
                       {c}
@@ -232,7 +232,7 @@ export default function CheckoutPage() {
 
               <textarea
                 className={`${field} min-h-16 resize-none`}
-                placeholder="ملاحظات للتوصيل (اختياري)"
+                placeholder="ملاحظات للمندوب (اختياري)"
                 value={form.notes}
                 onChange={(e) => update("notes", e.target.value)}
               />
@@ -244,8 +244,8 @@ export default function CheckoutPage() {
             <div className="border border-line p-5">
               <p className="mb-1 text-[0.9375rem]">الدفع عند الاستلام</p>
               <p className="text-[0.8125rem] leading-relaxed text-text-2">
-                ندفع نقداً أو بالبطاقة عند وصول الطلب. الدفع الإلكتروني (مدى،
-                Apple&nbsp;Pay، تمارا) يُفعَّل قريباً.
+                تدفع كاش أو بالشبكة لما يوصلك الطلب. الدفع الإلكتروني (مدى،
+                Apple&nbsp;Pay، تمارا) بينزل قريب.
               </p>
             </div>
           </section>
@@ -288,13 +288,13 @@ export default function CheckoutPage() {
 
             <div className="space-y-2 border-t border-line px-5 py-4 text-[0.8125rem]">
               <div className="flex justify-between text-text-2">
-                <span>المجموع الفرعي</span>
+                <span>المجموع</span>
                 <span className="data">{formatPrice(subtotal)} ر.س</span>
               </div>
 
               {savings > 0 && (
                 <div className="flex justify-between text-text-2">
-                  <span>الوفر</span>
+                  <span>وفّرت</span>
                   <span className="data">−{formatPrice(savings)} ر.س</span>
                 </div>
               )}
@@ -323,7 +323,7 @@ export default function CheckoutPage() {
 
           {failed && (
             <p className="mt-4 border border-error p-4 text-[0.8125rem]">
-              تعذّر إرسال الطلب. حاول مرة أخرى.
+              ما قدرنا نرسل الطلب. جرّب مرة ثانية.
             </p>
           )}
 
@@ -332,11 +332,11 @@ export default function CheckoutPage() {
             disabled={submitting}
             className="btn-solid mt-5 w-full text-[0.9375rem]"
           >
-            {submitting ? "جارٍ الإرسال…" : "تأكيد الطلب"}
+            {submitting ? "جاري الإرسال…" : "أكّد الطلب"}
           </button>
 
           <p className="mt-3 text-center text-[0.6875rem] leading-relaxed text-text-3">
-            بتأكيد الطلب أنت توافق على سياسة الاستبدال والإرجاع.
+            بتأكيدك للطلب أنت موافق على سياسة التبديل والإرجاع.
           </p>
         </aside>
       </form>

@@ -10,8 +10,8 @@ type SortKey = "featured" | "new" | "price-asc" | "price-desc";
 const SORTS: { key: SortKey; label: string }[] = [
   { key: "featured", label: "المختارة" },
   { key: "new", label: "الأحدث" },
-  { key: "price-asc", label: "السعر: الأقل" },
-  { key: "price-desc", label: "السعر: الأعلى" },
+  { key: "price-asc", label: "الأرخص أول" },
+  { key: "price-desc", label: "الأغلى أول" },
 ];
 
 interface ShopViewProps {

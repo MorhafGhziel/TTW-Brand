@@ -11,7 +11,7 @@ import Wordmark from "./Wordmark";
 /** Anchors are absolute so the nav works from product and category pages too. */
 export const NAV_LINKS = [
   { href: "/", label: "الرئيسية" },
-  { href: "/#manifesto", label: "من نحن" },
+  { href: "/#manifesto", label: "قصتنا" },
 ];
 
 const Navbar = () => {
@@ -95,8 +95,8 @@ const Navbar = () => {
               onClick={openCart}
               aria-label={
                 hydrated && totalItems > 0
-                  ? `سلة التسوق، ${totalItems} قطعة`
-                  : "سلة التسوق"
+                  ? `السلة، ${totalItems} قطعة`
+                  : "السلة"
               }
               className="relative text-text transition-colors hover:text-chrome"
             >
@@ -123,7 +123,7 @@ const Navbar = () => {
               <AnchorLink
                 href={link.href}
                 onNavigate={closeMenu}
-                className="font-kufi block py-5 text-[1.375rem] font-bold text-text"
+                className="block py-5 text-[1.375rem] font-bold text-text"
               >
                 {link.label}
               </AnchorLink>

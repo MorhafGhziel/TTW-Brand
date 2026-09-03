@@ -16,9 +16,9 @@ const NewDrop = async () => {
         <Reveal>
           <header className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="meta mb-3 text-text-3">هذا الأسبوع</p>
+              <p className="meta mb-3 text-text-3">نزل هذا الأسبوع</p>
               <div className="flex items-baseline gap-4">
-                <h2 className="h-section">الإصدار الجديد</h2>
+                <h2 className="h-section">الدروب الجديد</h2>
                 <span className="outline-type hidden text-[2.5rem] text-[#3a3a3a] md:inline">
                   DROP 01
                 </span>
@@ -29,7 +29,7 @@ const NewDrop = async () => {
               href="/new"
               className="link-underline text-[0.8125rem] text-text-2"
             >
-              عرض التشكيلة كاملة
+              شوف الكل
             </Link>
           </header>
         </Reveal>

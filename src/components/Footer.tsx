@@ -3,7 +3,7 @@ import Wordmark from "./Wordmark";
 
 const SERVICE_LINKS = [
   { href: "/#manifesto", label: "الشحن والإرجاع" },
-  { href: "/#manifesto", label: "الأسئلة الشائعة" },
+  { href: "/#manifesto", label: "أسئلة متكررة" },
   { href: "/#manifesto", label: "سياسة الخصوصية" },
   { href: "/#manifesto", label: "تواصل معنا" },
 ];
@@ -24,12 +24,12 @@ const Footer = () => (
       <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
           <Wordmark className="h-9" />
-          <p className="font-kufi mt-5 text-[1.0625rem] font-bold text-text-2">
-            أعمق من الموضة
+          <p className="mt-5 text-[1.0625rem] font-bold text-text-2">
+            مو مجرد لبس
           </p>
           <p className="mt-3 max-w-[28ch] text-[0.875rem] text-text-2">
-            مصمّم في الرياض. يُشحن إلى السعودية والإمارات والكويت. كل إصدار
-            يُطبع مرة واحدة، وما ينفد لا يعود.
+            من الرياض. نشحن للسعودية والإمارات والكويت. كل دروب ينزل
+            مرة وحدة وما يتعاد.
           </p>
         </div>
 
@@ -75,8 +75,14 @@ const Footer = () => (
 
     <div className="border-t border-line">
       <div className="mx-auto flex max-w-[var(--max)] flex-col gap-5 px-5 py-6 md:flex-row md:items-center md:justify-between md:px-8">
+        {/* The latin run is isolated: left loose in an RTL paragraph, the
+            bidi algorithm drags the trailing period to the wrong side of
+            "ABYSS". */}
         <p className="text-[0.75rem] text-text-3">
-          © ٢٠٢٦ ABYSS. جميع الحقوق محفوظة.
+          كل الحقوق محفوظة{" "}
+          <span dir="ltr" className="data">
+            © 2026 ABYSS
+          </span>
         </p>
 
         <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">

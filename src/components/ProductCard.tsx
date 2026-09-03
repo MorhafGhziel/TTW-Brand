@@ -81,7 +81,7 @@ const ProductCard = ({
                   type="button"
                   disabled={unavailable}
                   onClick={() => quickAdd(size)}
-                  aria-label={`أضف مقاس ${size} إلى السلة`}
+                  aria-label={`ضف مقاس ${size} للسلة`}
                   className={`data relative z-10 flex flex-1 items-center justify-center py-2.5 text-[0.6875rem] transition-colors duration-200 ${
                     unavailable
                       ? "cursor-not-allowed text-text-3 line-through"
@@ -104,7 +104,7 @@ const ProductCard = ({
 
       <div className="flex flex-1 flex-col gap-1 px-3 pt-3 pb-4">
         <h3
-          className={`font-kufi leading-snug font-bold ${
+          className={`leading-snug font-bold ${
             compact ? "text-[0.875rem]" : "text-[1rem]"
           }`}
         >
@@ -135,7 +135,7 @@ const ProductCard = ({
         {product.sizes.length > 1 && (
           <div className="mt-3 flex items-center gap-1.5">
             <span className="sr-only">
-              المقاسات المتوفرة: {inStock.join("، ") || "لا يوجد"}
+              المقاسات المتوفرة: {inStock.join("، ") || "ما فيه"}
             </span>
             {product.sizes.map((size) => (
               <span

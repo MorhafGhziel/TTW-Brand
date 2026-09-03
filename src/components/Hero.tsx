@@ -6,10 +6,10 @@ import { motion, useReducedMotion } from "framer-motion";
 import { INTRO_DONE_EVENT, shouldPlayIntro } from "@/lib/intro";
 
 const LINES = {
-  eyebrow: "تشكيلة خريف ٢٠٢٦",
-  headline: "أعمق من الموضة",
-  sub: "استكشف الأعماق. ارتدِ الثقة.",
-  cta: "تسوق الآن",
+  eyebrow: "دروب 01 — خريف 2026",
+  headline: "مو مجرد لبس",
+  sub: "خامة ثقيلة، قصّة واسعة، وكمية ما تتعاد.",
+  cta: "شوف الجديد",
 };
 
 /**
