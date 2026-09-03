@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { getBrowseCategories } from "@/lib/products";
+import AnchorLink from "./AnchorLink";
 import Wordmark from "./Wordmark";
 
 const SERVICE_LINKS = [
@@ -19,12 +18,10 @@ const SOCIALS = [
   { href: "https://x.com", label: "X" },
 ];
 
-const browseCategories = getBrowseCategories();
-
 const Footer = () => (
   <footer className="border-t border-line bg-abyss">
     <div className="mx-auto max-w-[var(--max)] px-5 py-16 md:px-8 md:py-20">
-      <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
           <Wordmark className="h-9" />
           <p className="font-kufi mt-5 text-[1.0625rem] font-bold text-text-2">
@@ -36,24 +33,6 @@ const Footer = () => (
           </p>
         </div>
 
-        <nav aria-labelledby="footer-cats">
-          <h2 id="footer-cats" className="meta mb-5 text-text-3">
-            الفئات
-          </h2>
-          <ul className="flex flex-col gap-3">
-            {browseCategories.map((c) => (
-              <li key={c.slug}>
-                <Link
-                  href={`/${c.slug}`}
-                  className="link-underline text-[0.875rem] text-text-2"
-                >
-                  {c.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
         <nav aria-labelledby="footer-service">
           <h2 id="footer-service" className="meta mb-5 text-text-3">
             خدمة العملاء
@@ -61,12 +40,12 @@ const Footer = () => (
           <ul className="flex flex-col gap-3">
             {SERVICE_LINKS.map((link) => (
               <li key={link.label}>
-                <Link
+                <AnchorLink
                   href={link.href}
                   className="link-underline text-[0.875rem] text-text-2"
                 >
                   {link.label}
-                </Link>
+                </AnchorLink>
               </li>
             ))}
           </ul>
