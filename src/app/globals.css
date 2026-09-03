@@ -74,7 +74,7 @@ html {
   /* Lenis owns smooth scrolling; CSS smooth-behavior would fight its loop. */
   scroll-behavior: auto;
   /* Anchor targets clear the fixed trust strip (2rem) + header (4rem). */
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 4rem;
   background: var(--abyss);
 }
 
@@ -166,7 +166,7 @@ input[type="search"]::-webkit-search-decoration {
    TYPE
    Three faces, one job each:
      display  — IntraNet, latin only, wordmark and section numerals
-     outline  — IntraNet Outline, the marquee and nothing else
+     outline  — IntraNet Outline, the DROP 01 side-mark
      kufi     — Noto Kufi Arabic, angular, for arabic headlines
      body     — Tajawal, arabic and small latin data
    ════════════════════════════════════════════════════════════════════ */
@@ -309,69 +309,24 @@ input[type="search"]::-webkit-search-decoration {
 }
 
 /* ── Photography grade ────────────────────────────────────────────────
-   Source frames arrive at wildly different exposures — a white-seamless
-   flat lay next to a night portrait — and the page needs them to read as
-   one shoot.
+   The garments keep their colour. Source frames do arrive at different
+   exposures, so a light shared filter stops the brightest of them glaring
+   against the near-black ground — but it stays light on purpose: someone
+   shopping needs to see what colour the piece actually is. The hover clears
+   the filter entirely. */
 
-   Filters alone could not do it: a white-seamless studio shot next to a night
-   portrait stays a white rectangle no matter how far the exposure is pulled.
-   So the frames are duotoned instead — a cold slate plate blended in `color`
-   mode takes the hue and saturation of every image while keeping its
-   luminosity, which lands the whole set in one register. The plate is a
-   fading overlay rather than a blend-mode swap so the hover reveals true
-   colour smoothly instead of snapping. */
-
-/* Deliberately sets no `position`: callers are already positioned, and one
-   of them is `absolute inset-0`. An unlayered `position: relative` here
-   outranks that utility and collapses the frame. */
-.duotone {
-  isolation: isolate;
-}
-
-.duotone::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: #1b2733;
-  mix-blend-mode: color;
-  transition: opacity 0.7s var(--ease);
-}
-
-.duotone img {
-  filter: brightness(0.8) contrast(1.12);
+.grade {
+  filter: brightness(0.94) contrast(1.03);
   transition: filter 0.7s var(--ease), transform 0.7s var(--ease);
 }
-
-/* Product tile: fully duotoned at rest, true colour under the pointer.
-   The compound form covers the category rail, where the tile is both the
-   hover group and the plate. */
-.group:hover .duotone::after,
-.group.duotone:hover::after {
-  opacity: 0;
-}
-.group:hover .duotone img,
-.group.duotone:hover img {
-  filter: brightness(0.98) contrast(1.02);
+.group:hover .grade {
+  filter: none;
 }
 
-/* Category rail: type sits on these, so they stay dark even on hover. */
-.duotone-deep img {
-  filter: brightness(0.5) contrast(1.15);
-}
-.group:hover .duotone-deep img,
-.group.duotone-deep:hover img {
-  filter: brightness(0.72) contrast(1.08);
-}
-.group:hover .duotone-deep::after,
-.group.duotone-deep:hover::after {
-  opacity: 0.55;
-}
-
-/* Lookbook: no hover, one fixed editorial grade. */
-.duotone-editorial img {
-  filter: brightness(0.72) contrast(1.12);
+/* Lookbook frames are atmosphere rather than product, so they sit a little
+   deeper and do not react to the pointer. */
+.grade-editorial {
+  filter: brightness(0.88) contrast(1.05);
 }
 
 /* The hero footage is already night-lit; it only needs the cold shift. */
@@ -392,15 +347,6 @@ input[type="search"]::-webkit-search-decoration {
    MOTION
    ════════════════════════════════════════════════════════════════════ */
 
-@keyframes marquee-rtl {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 @keyframes scroll-pulse {
   0% {
     transform: scaleY(0);
@@ -418,10 +364,6 @@ input[type="search"]::-webkit-search-decoration {
     transform: scaleY(0);
     transform-origin: bottom;
   }
-}
-
-.animate-marquee {
-  animation: marquee-rtl 42s linear infinite;
 }
 
 .animate-scroll-pulse {

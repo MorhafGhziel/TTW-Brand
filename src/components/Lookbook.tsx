@@ -31,9 +31,10 @@ const Lookbook = ({ shots }: { shots: LookbookShot[] }) => {
         const distance = Number(frame.dataset.parallax ?? 0);
         gsap.fromTo(
           frame,
-          { y: -distance },
+          { y: -distance, scale: 1.12 },
           {
             y: distance,
+            scale: 1.12,
             ease: "none",
             scrollTrigger: {
               trigger: section,
@@ -61,13 +62,13 @@ const Lookbook = ({ shots }: { shots: LookbookShot[] }) => {
         <div className="grid gap-px bg-line md:grid-cols-[3fr_2fr]">
           {/* Lead frame, with the title set into it */}
           <figure className="relative aspect-4/5 overflow-hidden bg-elevated md:aspect-auto md:min-h-[38rem]">
-            <div data-parallax="18" className="duotone duotone-editorial absolute inset-0">
+            <div data-parallax="18" className="absolute inset-0">
               <Image
                 src={lead.src}
                 alt={lead.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 55vw"
-                className="scale-[1.12] object-cover"
+                className="grade-editorial object-cover"
               />
             </div>
 
@@ -97,14 +98,14 @@ const Lookbook = ({ shots }: { shots: LookbookShot[] }) => {
               >
                 <div
                   data-parallax={i === 0 ? "-24" : "28"}
-                  className="duotone duotone-editorial absolute inset-0"
+                  className="absolute inset-0"
                 >
                   <Image
                     src={shot.src}
                     alt={shot.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 36vw"
-                    className="scale-[1.12] object-cover"
+                    className="grade-editorial object-cover"
                   />
                 </div>
               </figure>

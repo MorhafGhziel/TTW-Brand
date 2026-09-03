@@ -144,7 +144,7 @@ const SearchOverlay = () => {
                       onClick={leave}
                       className="group flex items-center gap-4 py-4"
                     >
-                      <span className="duotone relative aspect-3/4 w-14 shrink-0 overflow-hidden bg-elevated">
+                      <span className="relative aspect-3/4 w-14 shrink-0 overflow-hidden bg-elevated">
                         <Image
                           src={product.images[0]}
                           alt=""

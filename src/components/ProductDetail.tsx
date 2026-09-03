@@ -26,7 +26,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 55vw"
-            className="object-cover brightness-[0.88] contrast-105 saturate-[0.7]"
+            className="grade object-cover"
           />
           <span className="data pointer-events-none absolute bottom-4 start-4 text-[0.625rem] tracking-[0.24em] text-text-2 mix-blend-difference">
             {product.subtitle}

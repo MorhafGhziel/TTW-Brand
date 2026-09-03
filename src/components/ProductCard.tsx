@@ -43,7 +43,7 @@ const ProductCard = ({
 
   return (
     <article className="group relative flex flex-col bg-surface">
-      <div className="duotone relative aspect-3/4 overflow-hidden bg-elevated">
+      <div className="relative aspect-3/4 overflow-hidden bg-elevated">
         <Image
           src={product.images[0]}
           alt={product.name}
@@ -54,7 +54,7 @@ const ProductCard = ({
               : "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           }
           priority={priority}
-          className="object-cover transition-transform duration-700 ease-[var(--ease)] group-hover:scale-[1.03]"
+          className="grade object-cover group-hover:scale-[1.03]"
         />
 
         {/* Status. Only one can apply, and a discount outranks a new arrival. */}
