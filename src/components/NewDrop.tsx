@@ -1,20 +1,17 @@
 import Link from "next/link";
-import Marquee from "./Marquee";
 import ProductGrid from "./ProductGrid";
 import Reveal from "./Reveal";
 import { getNewDrop } from "@/lib/products";
 
 /**
- * The current drop. The marquee is the section's texture title; a quiet header
- * gives first-time visitors the context the band alone can't carry.
+ * The current drop. A quiet header carries the section; the grid is the
+ * thing worth looking at.
  */
 const NewDrop = async () => {
   const products = await getNewDrop(6);
 
   return (
     <section id="new-drop" className="scroll-mt-16">
-      <Marquee latin="NEW DROP" arabic="تشكيلة جديدة" />
-
       <div className="mx-auto max-w-[var(--max)] px-5 pt-14 pb-20 md:px-8 md:pt-20 md:pb-28">
         <Reveal>
           <header className="mb-10 flex flex-wrap items-end justify-between gap-4">
@@ -30,7 +27,7 @@ const NewDrop = async () => {
 
             <Link
               href="/new"
-              className="link-underline data text-[0.75rem] tracking-[0.2em] text-text-2"
+              className="link-underline text-[0.8125rem] text-text-2"
             >
               عرض التشكيلة كاملة
             </Link>
