@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import AnchorLink from "./AnchorLink";
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { INTRO_DONE_EVENT, shouldPlayIntro } from "@/lib/intro";
@@ -79,9 +79,9 @@ const Hero = () => {
         </motion.p>
 
         <motion.div {...rise(0.35)} className="mt-9">
-          <Link href="/#new-drop" className="btn-solid text-[0.9375rem]">
+          <AnchorLink href="/#new-drop" className="btn-solid text-[0.9375rem]">
             {LINES.cta}
-          </Link>
+          </AnchorLink>
         </motion.div>
       </div>
 

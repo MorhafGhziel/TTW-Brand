@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { registerLenis } from "@/lib/smooth-scroll";
 
 /**
  * One buttery scroll for the whole app.
@@ -26,6 +27,8 @@ const SmoothScroll = () => {
       touchMultiplier: 1.6,
     });
 
+    registerLenis(lenis);
+
     let rafId = 0;
     const raf = (time: number) => {
       lenis.raf(time);
@@ -35,6 +38,7 @@ const SmoothScroll = () => {
 
     return () => {
       cancelAnimationFrame(rafId);
+      registerLenis(null);
       lenis.destroy();
     };
   }, []);

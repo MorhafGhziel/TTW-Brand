@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import AnchorLink from "./AnchorLink";
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, X } from "lucide-react";
@@ -99,13 +100,13 @@ const CartDrawer = () => {
                 <p className="max-w-[30ch] text-[0.9375rem] text-text-2">
                   ابدأ من التشكيلة الجديدة — ستة قطع نزلت هذا الأسبوع.
                 </p>
-                <Link
+                <AnchorLink
                   href="/#new-drop"
-                  onClick={closeCart}
+                  onNavigate={closeCart}
                   className="btn-line text-[0.875rem]"
                 >
                   تصفّح التشكيلة
-                </Link>
+                </AnchorLink>
               </div>
             ) : (
               <>
